@@ -1,0 +1,43 @@
+<style>
+    .cookie-message {
+        position: sticky;
+        z-index: 100;
+        bottom: 0;
+        background-color: #fff;
+        border-top: 1px solid #d3d3d3;
+    }
+
+    .cookie-message-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 0;
+        line-height: 1.2;
+    }
+
+    .cookie-message-text {
+        flex-grow: 2;
+    }
+</style>
+
+<div class="cookie-message js-cookie-message" hidden>
+    <div class="container">
+        <div class="cookie-message-inner">
+            <div class="cookie-message-text">
+                текст
+            </div>
+            <button class="button js-cookie-message-confirm">ОК</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (!localStorage.getItem('cookieAccept')) {
+        const el = document.querySelector('.js-cookie-message');
+        el.style.display = 'block';
+        el.querySelector('.js-cookie-message-confirm').addEventListener('click', (e) => {
+            localStorage.setItem('cookieAccept', 1);
+            el.style.display = 'none';
+        }, true);
+    }
+</script>
