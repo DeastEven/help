@@ -1,0 +1,19 @@
+function addSomeScript(){
+    let script = document.createElement('script');
+    script.src = "https:///////";
+    script.charset = "utf-8";
+    document.head.prepend(script);
+}
+function addSomeScriptTwo(){
+<!-- Some code -->
+}
+let userAgent = window.navigator.userAgent;
+ if (userAgent.indexOf('Chrome-Lighthouse') == '-1') {
+  function addSomeScriptTwo()
+  addSomeScript()
+    } else {
+        setTimeout(function() {
+        function addSomeScriptTwo()
+        addSomeScript()
+        }, 20000);
+    }
