@@ -8,3 +8,18 @@ ol li {
 ol li::before {
     content: counter(counter) ". ";
 }
+
+ul li{
+    position: relative;
+    padding-left: 20px;
+}
+ul li:before{
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #333;
+}
