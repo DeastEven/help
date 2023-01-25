@@ -9,11 +9,11 @@ function addSomeScriptTwo(){
 }
 let userAgent = window.navigator.userAgent;
  if (userAgent.indexOf('Chrome-Lighthouse') == '-1') {
-  function addSomeScriptTwo()
+  addSomeScriptTwo()
   addSomeScript()
     } else {
         setTimeout(function() {
-        function addSomeScriptTwo()
+        addSomeScriptTwo()
         addSomeScript()
         }, 20000);
     }
