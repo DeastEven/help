@@ -9,6 +9,10 @@ ol li::before {
     content: counter(counter) ". ";
 }
 
+
+ul {
+    list-style: none;
+}
 ul li{
     position: relative;
     padding-left: 20px;
