@@ -1,0 +1,5 @@
+function wp_nav_menu_no_current_link( $atts, $item, $args, $depth ) {
+	if ( $item->current ) $atts['href'] = '';
+	return $atts;
+}
+add_action( 'nav_menu_link_attributes', 'wp_nav_menu_no_current_link', 10, 4 );
