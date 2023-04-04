@@ -80,34 +80,38 @@
 }
 </style>
 <script>
-const tabsCustom = document.querySelectorAll('.tabs__btn');
-const tabsContent = document.querySelectorAll('.tabs__body');
-
-if (tabsContent.length > 0 || tabs.length > 0) {
-
-    function hideTabContent() {
-        tabsContent.forEach(item => {
+class ColorTabs{
+    constructor(nodeElement) {
+        this.$container = nodeElement;
+        this.$tabsButtons = this.$container.querySelectorAll('.tabs__btn');
+        this.$tabsContent = this.$container.querySelectorAll('.tabs__body');
+        this.init();
+    }
+    hideTabContent(){
+        this.$tabsContent.forEach(item => {
             item.classList.remove('active');
         });
-
-        tabsCustom.forEach(item => {
+        this.$tabsButtons.forEach(item => {
             item.classList.remove('active');
         });
     }
-
-    function showTabContent(i = 0) {
-        tabsContent[i].classList.add('active');
-        tabsCustom[i].classList.add('active');
+    showTabContent(i = 0){
+        this.$tabsContent[i].classList.add('active');
+        this.$tabsButtons[i].classList.add('active');
     }
 
-    hideTabContent();
-    showTabContent();
-
-    tabsCustom.forEach((tab, index) => {
-        tab.addEventListener('click', () => {
-            hideTabContent();
-            showTabContent(index);
-        });
-    });
+    init(){
+        this.$tabsButtons.forEach((item,index)=>{
+            item.addEventListener('click', () => {
+                this.hideTabContent();
+                this.showTabContent(index);
+            });
+        })
+    }
 }
+document.addEventListener('DOMContentLoaded', e => {
+    document.querySelectorAll('.color-tabs').forEach(item => {
+        new ColorTabs(item)
+    })
+})
 </script>
