@@ -1,0 +1,24 @@
+class SmoothLinks{
+    constructor(item) {
+        this.$smoothLink = item
+        this.clickOptions = this.clickOptions.bind(this)
+        this.init()
+    }
+    clickOptions(e){
+        e.preventDefault();
+        const id = this.$smoothLink.getAttribute('href')
+        document.querySelector(id).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+    init(){
+        this.$smoothLink.addEventListener('click',this.clickOptions)
+    }
+}
+
+document.addEventListener('DOMContentLoaded', e => {
+    document.querySelectorAll('.smooth-links').forEach(item => {
+        new SmoothLinks(item)
+    })
+})
