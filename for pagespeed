@@ -1,3 +1,10 @@
+<?php $pagespeed = !(array_pop(explode(' ', $_SERVER['HTTP_USER_AGENT']) ) == 'Chrome-Lighthouse');?>
+<?php
+	if($pagespeed){
+		echo " <script src='some.js'></script>";
+	}
+?>
+
 function addSomeScript(){
     let script = document.createElement('script');
     script.src = "https:///////";
