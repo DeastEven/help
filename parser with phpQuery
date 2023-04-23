@@ -1,0 +1,43 @@
+<?php
+
+header('Content-type: text/html; charset=utf-8');
+    require_once 'phpQuery.php';
+
+    $url = 'https://somesite';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; ru-RU; rv:1.7.12) Gecko/20050919 Firefox/1.0.7");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $content = curl_exec($ch);
+    curl_close($ch);
+    $doc = phpQuery::newDocument( $content);
+
+    $images = $doc->find('.swiper-slide picture img');
+    foreach ($images as $key=> $image){
+        $image = pq($image);
+        $img = 'https://oborussia.ru' . $image->attr('src') ;
+        break;
+    }
+    $product = trim ($doc->find('.description__title')->text()) . ' ;' . str_replace(array("\r\n", "\r", "\n"), '', trim ($doc->find('.description__text')->text())) . ' ;' . 'Системы крепления и монтажа (VBS)' . ' ;' . '6048910' . ' ;' . $img;
+    $product = htmlspecialchars($product);
+    $data = [
+    [$product]
+    ];
+
+        $filename = 'product.csv';
+
+        // open csv file for writing
+        $f = fopen($filename, 'w');
+
+        if ($f === false) {
+            die('Error opening the file ' . $filename);
+        }
+        fprintf($f, chr(0xEF).chr(0xBB).chr(0xBF));
+        // write each row at a time to a file
+        foreach ($data as $row) {
+            fputcsv($f, $row,';');
+        }
+
+        // close the file
+        fclose($f);
