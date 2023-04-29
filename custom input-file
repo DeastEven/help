@@ -1,0 +1,67 @@
+<div class="custom-input-file">
+    <input name="file" type="file" id="input__file" class="input input__file" multiple>
+    <label for="input__file" class="input__file-button">
+        <span class="input__file-icon-wrapper">
+            <img class="input__file-icon" src="/img.svg" alt="Выбрать файл" width="25">
+        </span>
+        <span class="input__file-button-text">Прикрепить файл</span>
+    </label>
+</div>
+<style>
+.custom-input-file {
+    width: 100%;
+    position: relative;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.input__file {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.input__file-icon-wrapper {
+    margin-right: 15px;
+}
+
+.input__file-button-text {
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.input__file-button {
+    width: 100%;
+    max-width: 290px;
+    height: 60px;
+    background: transparent;
+    color: #999999;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    margin: 0 auto;
+    border: 1px solid #E5E5E5;
+    padding: 12px 20px 12px 25px;
+    border-radius: 6px;
+}
+</style>
+<script>
+let inputs = document.querySelectorAll('.input__file');
+Array.prototype.forEach.call(inputs, function (input) {
+    let label = input.nextElementSibling,
+        labelVal = label.querySelector('.input__file-button-text').innerText;
+
+    input.addEventListener('change', function (e) {
+        let countFiles = '';
+        if (this.files && this.files.length >= 1)
+            countFiles = this.files.length;
+
+        if (countFiles)
+            label.querySelector('.input__file-button-text').innerText = 'Выбрано файлов: ' + countFiles;
+        else
+            label.querySelector('.input__file-button-text').innerText = labelVal;
+    });
+});
+</script>
