@@ -1,0 +1,110 @@
+   <div class="js-quiz">
+                {set $quiz = json_decode($_modx->resource.quiz, true)}
+                <div class="quiz-count"></div>
+                <form class="quiz-wrapper">
+                    {foreach $quiz as $key => $item}
+                        {set $answers = json_decode($item.answer, true)}
+
+                        <div class="quiz-item quiz-item-ask">
+                            <input class="js-quiz-correct" type="hidden" value="{$item.correct}">
+                            <div class="quiz-item__body">
+                                <div class="d-flex align-items-center">
+                                    <p class="quiz-item-title js-quiz-title">{$item.title}</p>
+                                    <div class="">
+                                        {if !$answers}
+                                            <input class="form-input quiz-form-input quiz-input" name="quiz-{$key+1}" type="text"/>
+                                        {/if}
+                                    </div>
+                                    <p class="quiz-item-title js-quiz-title2">{$item.title2}</p>
+                                </div>
+                                {if $answers}
+                                    <div class="">
+                                        {foreach $answers as $answer_item}
+                                            <div>
+                                                <label>
+                                                    <input class="quiz-input" type="radio" name="quiz-{$key+1}" value="{$answer_item.answer}">
+                                                    {$answer_item.answer}
+                                                </label>
+                                            </div>
+                                        {/foreach}
+                                    </div>
+                                {/if}
+                            </div>
+                        </div>
+                    {/foreach}
+                    <div class="quiz-item">
+                        <div class="quiz-item__body">
+                            <div class="form-wrap">
+                                <input class="form-input"  type="text" name="name" placeholder="Имя" required>
+                            </div>
+                            <div class="form-wrap">
+                                <input class="form-input phone_mask"  type="tel" name="phone" placeholder="Телефон" >
+                            </div>
+                            <div class="form-wrap">
+                                <input class="form-input"  type="email" name="email" placeholder="E-Mail" required>
+                            </div>
+                            <div class="form-wrap">
+                                <textarea class="form-input"  name="message" placeholder="Сообщение" ></textarea>
+                            </div>
+                            <div class="form-group form-group_checkbox">
+                                <input class="form-input_checkbox"  type="checkbox" required>
+                                <label class="form-input_label">Я даю согласие на обработку персональных данных в соответствии с Политикой конфиденциальности</label>
+                            </div>
+                            <div class="form-button group-sm text-center text-lg-left ">
+                                <button class="button button-primary quiz-submit-btn" type="submit">Отправить</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <script>
+    class Quiz{
+        constructor(nodeElement){
+            this.$container = nodeElement
+            this.$form = this.$container.querySelector('.quiz-wrapper')
+            this.$formBtn = this.$container.querySelector('.quiz-submit-btn')
+            this.$quizItems = this.$container.querySelectorAll('.quiz-item-ask')
+            this.answers = []
+            this.getQuizValue = this.getQuizValue.bind(this)
+            this.init()
+        }
+
+        getQuizValue(){
+            this.$quizItems.forEach(item =>{
+                let title = item.querySelector('.js-quiz-title').textContent
+                let title2 = item.querySelector('.js-quiz-title2').textContent
+                let correct = item.querySelector('.js-quiz-correct').value
+                let answer
+                let inputs = item.querySelectorAll('.quiz-input')
+                inputs.forEach(item=>{
+                    (item.type == 'radio')
+                        ? item.checked
+                            ?  answer = item.value
+                            : ''
+                        : answer = item.value
+                })
+                let obj = {
+                    title:title,
+                    title2:title2,
+                    correct:correct,
+                    answer:answer
+                }
+                this.answers.push(obj)
+            })
+        }
+        init(){
+            this.$formBtn.addEventListener('click',e=>{
+                e.preventDefault()
+                this.getQuizValue()
+                console.log(this.answers )
+            })
+        }
+    }
+    document.addEventListener('DOMContentLoaded',e=>{
+        document.querySelectorAll('.js-quiz').forEach(item=>{
+            new Quiz (item)
+        })
+    })
+</script>
