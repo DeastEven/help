@@ -1,0 +1,50 @@
+<header>
+  <div class="header-mobile js-sticky-header"></div>
+  <div class="js-sticky-header"></div>
+</header>
+
+<style>
+.js-sticky-header.is-sticky {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    animation: slideDown 0.35s ease-out;
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+</style>
+<script>
+class Header{
+    constructor(nodeElement) {
+        this.$container = nodeElement
+        this.stickyHeader = this.$container.querySelectorAll('.js-sticky-header')
+        this.init()
+    }
+    sticky(){
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.pageYOffset;
+            this.stickyHeader.forEach(item=>{
+                if (currentScroll > 150) {
+                    item.classList.add('is-sticky');
+                } else {
+                    item.classList.remove('is-sticky');
+                }
+            })
+        });
+    }
+    init(){
+        this.sticky()
+    }
+}
+document.addEventListener('DOMContentLoaded', () => {
+    new Header(document.querySelector('header'))
+})
+</script>
