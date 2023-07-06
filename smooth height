@@ -21,14 +21,14 @@ class SmoothBox{
                 this.$container.dataset.open = 'true'
                 this.$button.classList.add('active')
                 this.$container.classList.add('active')
-                this.$button.querySelector('.smooth-btn-text').textContent ="Свернуть"
+                this.$button.textContent ="Свернуть"
                 this.$content.style.maxHeight = `${ this.$content.scrollHeight }px`
             } else {
                 this.$container.dataset.open = 'false'
                 this.$content.style.maxHeight = ''
                 this.$button.classList.remove('active')
                 this.$container.classList.remove('active')
-                this.$button.querySelector('.smooth-btn-text').textContent ="Развернуть"
+                this.$button.textContent ="Развернуть"
             }
         })
         window.addEventListener('resize', this.onResize())
