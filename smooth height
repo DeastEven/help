@@ -1,38 +1,41 @@
-document.addEventListener('DOMContentLoaded', () => { 
-
-  const smoothHeight = (itemSelector, buttonSelector, contentSelector) => {
-
-    const items = document.querySelectorAll(itemSelector) 
-
-    if (!items.length) return 
-
-    items.forEach(el => { 
-      const button = el.querySelector(buttonSelector) 
-      const content = el.querySelector(contentSelector) 
-
-      button.addEventListener('click', () => { 
-        if (el.dataset.open !== 'true') { 
-          el.dataset.open = 'true' 
-          content.style.maxHeight = `${ content.scrollHeight }px` 
-        } else {
-          el.dataset.open = 'false' 
-          content.style.maxHeight = '' 
+class SmoothBox{
+    constructor(nodeElement){
+        this.$container = nodeElement
+        this.$button = this.$container.querySelector('.smooth-btn')
+        this.$content = this.$container.querySelector('.smooth-block')
+        this.init();
+    }
+    onResize(){
+        if (this.$container.dataset.open === 'true') {
+            if (parseInt(this.$content.style.maxHeight) !== this.$content.scrollHeight) {
+                this.$content.style.maxHeight = `${ this.$content.scrollHeight }px`
+            }
         }
-      })
-
-      const onResize = () => { 
-        if (el.dataset.open === 'true') { 
-          if (parseInt(content.style.maxHeight) !== content.scrollHeight) { 
-            content.style.maxHeight = `${ content.scrollHeight }px` 
-          }
+    }
+    init(){
+        if(this.$content.scrollHeight < 300){
+            this.$button.classList.add('d-none')
         }
-      }
-
-      window.addEventListener('resize', onResize) 
+        this.$button.addEventListener('click', () => {
+            if (this.$container.dataset.open !== 'true') {
+                this.$container.dataset.open = 'true'
+                this.$button.classList.add('active')
+                this.$container.classList.add('active')
+                this.$button.querySelector('.smooth-btn-text').textContent ="Свернуть"
+                this.$content.style.maxHeight = `${ this.$content.scrollHeight }px`
+            } else {
+                this.$container.dataset.open = 'false'
+                this.$content.style.maxHeight = ''
+                this.$button.classList.remove('active')
+                this.$container.classList.remove('active')
+                this.$button.querySelector('.smooth-btn-text').textContent ="Развернуть"
+            }
+        })
+        window.addEventListener('resize', this.onResize())
+    }
+}
+document.addEventListener('DOMContentLoaded', e => {
+    document.querySelectorAll('.smooth-wrapper').forEach(item => {
+        new SmoothBox(item)
     })
-
-  }
-
-  smoothHeight('.service-seo-filter__item', '.service-seo-filter__btn', '.service-seo-filter__list') 
-
 })
