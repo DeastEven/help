@@ -1,117 +1,110 @@
-<div class="tabs">
+<div class="js-tabs">
     <nav class="tabs__navigation">
-        <button class="tabs__btn active" type="button">Tab №1</button>
-        <button class="tabs__btn" type="button">Tab №2</button>
-        <button class="tabs__btn" type="button">Tab №3</button>
+        <button class="js-tabs-btn active" type="button">Tab №1</button>
+        <button class="js-tabs-btn" type="button">Tab №2</button>
+        <button class="js-tabs-btn" type="button">Tab №3</button>
     </nav>
 
     <div class="tabs__content">
-        <div class="tabs__body active">
+        <div class="js-tabs-body active">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste tenetur neque veritatis dicta repellat? Dolores magnam ullam praesentium optio architecto.
         </div>
-        <div class="tabs__body">
+        <div class="js-tabs-body">
             Corporis deserunt voluptatibus ullam earum numquam, odio nemo quis?
         </div>
-        <div class="tabs__body">
+        <div class="js-tabs-body">
             Maiores itaque accusamus quaerat dolore assumenda exercitationem eum soluta libero, eveniet, amet voluptates porro eligendi ratione incidunt! Aut, nulla maiores?
         </div>
     </div>
 </div>
 
 <style>
-.tabs {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-.tabs__navigation {
-    display: flex;
-    border-bottom: 2px solid #c8c8c8;
-}
-.tabs__navigation:hover .tool-tabs__tab.active {
-    color: #000;
-    font-weight: 400;
-    background-color: #c8c8c8;
-}
-.tabs__navigation:hover .tool-tabs__tab.active:after {
-    width: 0;
-}
-.tabs__navigation:hover .tool-tabs__tab:hover.active {
-    color: #000;
-    font-weight: 500;
-}
-.tabs__navigation:hover .tool-tabs__tab:hover.active:after {
-    width: 100%;
-}
-.tabs__btn {
-    position: relative;
-    flex: 0 1 50%;
-    padding-bottom: 15px;
-    border: none;
-    background-color: transparent;
-    font-size: 32px;
-    line-height: 120%;
-    color: #000;
-    transition: color 0.2s;
-    cursor: pointer;
-}
-.tabs__btn.active {
-    color: #fff;
-    font-weight: 400;
-    background-color: #c8c8c8;
-}
-.tabs__btn:hover {
-    color: grey;
-    font-weight: 500;
-}
-.tabs__btn:hover.active {
-    color: red;
-    font-weight: 500;
-}
-.tabs__content {
-    margin-top: 15px;
-}
-.tabs__body {
-    display: none;
-    font-size: 18px;
-}
-.tabs__body.active {
-    display: block;
-}
+    .js-tabs {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .tabs__navigation {
+        display: flex;
+        border-bottom: 2px solid #c8c8c8;
+    }
+    .tabs__navigation:hover .tool-tabs__tab.active {
+        color: #000;
+        font-weight: 400;
+        background-color: #c8c8c8;
+    }
+    .tabs__navigation:hover .tool-tabs__tab.active:after {
+        width: 0;
+    }
+    .tabs__navigation:hover .tool-tabs__tab:hover.active {
+        color: #000;
+        font-weight: 500;
+    }
+    .tabs__navigation:hover .tool-tabs__tab:hover.active:after {
+        width: 100%;
+    }
+    .js-tabs-btn {
+        position: relative;
+        flex: 0 1 50%;
+        border: none;
+        background-color: transparent;
+        color: #000;
+        transition: color 0.2s;
+        cursor: pointer;
+    }
+    .js-tabs-btn.active {
+        color: #fff;
+        font-weight: 400;
+        background-color: #c8c8c8;
+    }
+    .js-tabs-btn:hover {
+        color: grey;
+        font-weight: 500;
+    }
+    .tabs__content {
+        margin-top: 15px;
+    }
+    .js-tabs-body {
+        display: none;
+        font-size: 18px;
+    }
+    .js-tabs-body.active {
+        display: block;
+    }
 </style>
 <script>
-class ColorTabs{
-    constructor(nodeElement) {
-        this.$container = nodeElement;
-        this.$tabsButtons = this.$container.querySelectorAll('.tabs__btn');
-        this.$tabsContent = this.$container.querySelectorAll('.tabs__body');
-        this.init();
-    }
-    hideTabContent(){
-        this.$tabsContent.forEach(item => {
-            item.classList.remove('active');
-        });
-        this.$tabsButtons.forEach(item => {
-            item.classList.remove('active');
-        });
-    }
-    showTabContent(i = 0){
-        this.$tabsContent[i].classList.add('active');
-        this.$tabsButtons[i].classList.add('active');
-    }
-
-    init(){
-        this.$tabsButtons.forEach((item,index)=>{
-            item.addEventListener('click', () => {
-                this.hideTabContent();
-                this.showTabContent(index);
+    class ColorTabs{
+        constructor(nodeElement) {
+            this.$container = nodeElement;
+            this.$tabsButtons = this.$container.querySelectorAll('.js-tabs-btn');
+            this.$tabsContent = this.$container.querySelectorAll('.js-tabs-body');
+            this.init();
+        }
+        hideTabContent(){
+            this.$tabsContent.forEach(item => {
+                item.classList.remove('active');
             });
-        })
+            this.$tabsButtons.forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+        showTabContent(i = 0){
+            this.$tabsContent[i].classList.add('active');
+            this.$tabsButtons[i].classList.add('active');
+        }
+
+        init(){
+            this.$tabsButtons.forEach((item,index)=>{
+                item.addEventListener('click', () => {
+                    this.hideTabContent();
+                    this.showTabContent(index);
+                });
+            })
+        }
     }
-}
-document.addEventListener('DOMContentLoaded', e => {
-    document.querySelectorAll('.color-tabs').forEach(item => {
-        new ColorTabs(item)
+    document.addEventListener('DOMContentLoaded', e => {
+        document.querySelectorAll('.js-tabs').forEach(item => {
+            new ColorTabs(item)
+        })
     })
-})
 </script>
