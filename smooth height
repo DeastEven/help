@@ -1,8 +1,26 @@
+<div class="js-smooth-wrapper">
+    <div class="js-smooth-block">
+        <p> Some text ......</p>
+    </div>
+    <span class="js-smooth-btn">
+       Развернуть
+    </span>
+</div>
+
+<style>
+.js-smooth-block{
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height 0.9s;
+}
+</style>
+
+<script>
 class SmoothBox{
     constructor(nodeElement){
         this.$container = nodeElement
-        this.$button = this.$container.querySelector('.smooth-btn')
-        this.$content = this.$container.querySelector('.smooth-block')
+        this.$button = this.$container.querySelector('.js-smooth-btn')
+        this.$content = this.$container.querySelector('.js-smooth-block')
         this.init();
     }
     onResize(){
@@ -35,7 +53,9 @@ class SmoothBox{
     }
 }
 document.addEventListener('DOMContentLoaded', e => {
-    document.querySelectorAll('.smooth-wrapper').forEach(item => {
+    document.querySelectorAll('.js-smooth-wrapper').forEach(item => {
         new SmoothBox(item)
     })
 })
+</script>
+
